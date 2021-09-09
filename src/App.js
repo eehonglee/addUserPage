@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import AddUser from './Components/AddUser/AddUser';
+import UserList from './Components/UserList/UserList';
+
+
+
+/*
+
+<AddUser /> 2 inputs, name & age, with text , submit button. Check if empty, if empty open Modal.
+<User List /> Display users
+
+*/
 
 function App() {
+
+  const [userList,setNewUserList] = useState([]);
+  
+  const userListHandler = newUser =>{
+    setNewUserList((userList)=>{ return [newUser,...userList]});
+    console.log(userList);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddUser onAddUserList={userListHandler}/>
+      <UserList users={userList}/>
     </div>
   );
 }
